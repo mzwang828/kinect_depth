@@ -19,7 +19,7 @@ void depthcb(const sensor_msgs::ImageConstPtr& msg)
         // Convert the uints to floats
         depth_img_cv->image.convertTo(depth_mat, CV_32F, 0.001);
 
-        float depth = depth_img_cv->image.at<short int>(1000,800);
+        float depth = depth_img_cv->image.at<short int>(150,200);
 
         ROS_INFO("Depth: %f", depth);
         ROS_INFO("Height: %d", msg->height);
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "depth");
 
     ros::NodeHandle nh;
-    ros::Subscriber sub = nh.subscribe("kinect2/hd/image_depth_rect", 1000, depthcb);
+    ros::Subscriber sub = nh.subscribe("camera/depth_registered/image_raw", 10, depthcb);
 
 
     ros::spin();
